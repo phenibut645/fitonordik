@@ -632,3 +632,34 @@ a {
         align-items: flex-start;
     }
 }
+
+.contact-form {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.contact-form label {
+    display: grid;
+    gap: 0.5rem;
+}
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    border: 1px solid #cfd6dd;
+    border-radius: 0.75rem;
+    padding: 0.9rem 1rem;
+    font: inherit;
+    background: #fff;
+}
+.form-success {
+    padding: 0.9rem 1rem;
+    border-radius: 0.75rem;
+    background: #e7f8ee;
+    color: #0a6b36;
+}
+.form-errors {
+    padding: 0.9rem 1rem;
+    border-radius: 0.75rem;
+    background: #fdecec;
+    color: #8f1d1d;
+}

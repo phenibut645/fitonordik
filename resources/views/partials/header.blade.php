@@ -10,11 +10,11 @@
                     class="{{ request()->routeIs($item['route']) ? 'is-active' : '' }}"
                     href="{{ route($item['route']) }}"
                 >
-                    {{ $item['label'] }}
+                    {{ __($item['label']) }}
                 </a>
             @endforeach
         </nav>
 
-        <a class="button button--ghost" href="{{ route('contacts') }}">Contact us</a>
+        <a class="button button--ghost" href="{{ route('contacts') }}">{{ __('Contact us') }}</a>
     </div>
 </header>

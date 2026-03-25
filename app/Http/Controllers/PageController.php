@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PageController extends Controller
 {
@@ -23,12 +26,43 @@ class PageController extends Controller
         abort_unless(array_key_exists($page, $pages), 404);
 
         return view('pages.content', [
+            'pageKey' => $page,
             'page' => $pages[$page],
             'navigation' => $this->navigation(),
             'legalNavigation' => $this->legalNavigation(),
             'pageTitle' => $pages[$page]['title'],
             'pageDescription' => $pages[$page]['intro'],
         ]);
+    }
+
+    public function contact(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:190'],
+            'company' => ['nullable', 'string', 'max:190'],
+            'message' => ['required', 'string', 'max:5000'],
+        ]);
+
+        $recipient = env('CONTACT_FORM_TO', env('MAIL_FROM_ADDRESS', 'test@fitonordic.com'));
+        $subject = 'FITONORDIC LAB test contact form submission';
+
+        $body = implode(PHP_EOL, [
+            'Name: ' . $data['name'],
+            'Email: ' . $data['email'],
+            'Company: ' . ($data['company'] ?? '-'),
+            '',
+            'Message:',
+            $data['message'],
+        ]);
+
+        Mail::raw($body, function ($message) use ($recipient, $subject, $data) {
+            $message->to($recipient)
+                ->replyTo($data['email'], $data['name'])
+                ->subject($subject);
+        });
+
+        return back()->with('status', __('Thank you! Your request has been sent.'));
     }
 
     private function navigation(): array
@@ -116,8 +150,16 @@ class PageController extends Controller
             'contacts' => [
                 'eyebrow' => 'Direct communication',
                 'title' => 'Contacts',
-                'intro' => 'A practical contact page with address, communication channels, and a future feedback form.',
+                'intro' => 'A practical contact page with address, communication channels, and a working feedback form.',
                 'sections' => [
+                    [
+                        'title' => 'Contact details',
+                        'items' => [
+                            'Email: test@fitonordic.com',
+                            'Website: test.fitonordic.com',
+                            'Production base in Estonia.',
+                        ],
+                    ],
                     [
                         'title' => 'What to include',
                         'items' => [

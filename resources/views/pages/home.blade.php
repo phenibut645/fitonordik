@@ -4,15 +4,15 @@
     <section class="hero">
         <div class="container hero__grid">
             <div>
-                <p class="eyebrow">Production in Estonia</p>
+                <p class="eyebrow">{{ __('Production in Estonia') }}</p>
                 <h1>European full-cycle cosmetics manufacturing in Estonia.</h1>
                 <p class="lead">
                     FITONORDIC LAB combines laboratory development, production, packaging, and quality control in one clear process.
                     The current site version is focused on therapeutic and care cosmetics, plus essential, cosmetic, and fatty oils.
                 </p>
                 <div class="hero__actions">
-                    <a class="button" href="{{ route('contacts') }}">Discuss project</a>
-                    <a class="button button--ghost" href="{{ route('production-capabilities') }}">View production</a>
+                    <a class="button" href="{{ route('contacts') }}">{{ __('Discuss project') }}</a>
+                    <a class="button button--ghost" href="{{ route('production-capabilities') }}">{{ __('View production') }}</a>
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
 
     <section class="trust-strip">
         <div class="container trust-strip__grid">
-            <span>Production in Estonia</span>
+            <span>{{ __('Production in Estonia') }}</span>
             <span>Own laboratory</span>
             <span>Packaging area</span>
             <span>Warehouse</span>
